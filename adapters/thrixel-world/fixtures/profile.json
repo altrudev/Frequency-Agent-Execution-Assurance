@@ -1,0 +1,95 @@
+{
+  "schema": "frequency.thrixel-world-profile.v1",
+  "vendor": "Thrixel",
+  "transport": {
+    "package": "thrixel-mcp",
+    "version": "1.3.17",
+    "wheel_sha256": "cd61d32f173736b8cee7d4c68417f67d90ecc58832417b96d5159e5cc7ceec02",
+    "server_name": "thrixel",
+    "production_execution_enabled": false
+  },
+  "operations": {
+    "thrixel_create_model": {
+      "mapped_operation": "artifact.generate",
+      "authority_requirement": "Delegated",
+      "mutates_external_state": true,
+      "requires_independent_observation": true
+    },
+    "thrixel_sculpt_model": {
+      "mapped_operation": "artifact.generate",
+      "authority_requirement": "Delegated",
+      "mutates_external_state": true,
+      "requires_independent_observation": true
+    },
+    "thrixel_edit_model": {
+      "mapped_operation": "artifact.transform",
+      "authority_requirement": "Delegated",
+      "mutates_external_state": true,
+      "requires_independent_observation": true
+    },
+    "thrixel_detail_model": {
+      "mapped_operation": "artifact.transform",
+      "authority_requirement": "Delegated",
+      "mutates_external_state": true,
+      "requires_independent_observation": true
+    },
+    "thrixel_retexture_model": {
+      "mapped_operation": "artifact.transform",
+      "authority_requirement": "Delegated",
+      "mutates_external_state": true,
+      "requires_independent_observation": true
+    },
+    "thrixel_reduce_triangles": {
+      "mapped_operation": "artifact.transform",
+      "authority_requirement": "Delegated",
+      "mutates_external_state": true,
+      "requires_independent_observation": true
+    },
+    "thrixel_group_parts": {
+      "mapped_operation": "artifact.transform",
+      "authority_requirement": "Delegated",
+      "mutates_external_state": true,
+      "requires_independent_observation": true
+    },
+    "thrixel_start_project": {
+      "mapped_operation": "project.create",
+      "authority_requirement": "Delegated",
+      "mutates_external_state": true,
+      "requires_independent_observation": true
+    },
+    "thrixel_add_project_source": {
+      "mapped_operation": "project.source.add",
+      "authority_requirement": "Delegated",
+      "mutates_external_state": true,
+      "requires_independent_observation": true
+    },
+    "thrixel_publish_game": {
+      "mapped_operation": "world.publish",
+      "authority_requirement": "OwnerRequired",
+      "mutates_external_state": true,
+      "requires_independent_observation": true,
+      "disabled": true
+    },
+    "thrixel_buy_cubes": {
+      "mapped_operation": "financial.credits.purchase",
+      "authority_requirement": "OwnerRequired",
+      "mutates_external_state": true,
+      "requires_independent_observation": true,
+      "disabled": true
+    },
+    "thrixel_upgrade_plan": {
+      "mapped_operation": "financial.plan.upgrade",
+      "authority_requirement": "OwnerRequired",
+      "mutates_external_state": true,
+      "requires_independent_observation": true,
+      "disabled": true
+    },
+    "thrixel_billing_portal": {
+      "mapped_operation": "financial.billing.portal",
+      "authority_requirement": "OwnerRequired",
+      "mutates_external_state": true,
+      "requires_independent_observation": true,
+      "disabled": true
+    }
+  }
+}
