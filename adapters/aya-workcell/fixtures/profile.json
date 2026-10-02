@@ -1,0 +1,15 @@
+{
+  "schema": "frequency.aya-workcell-profile.v1",
+  "vendor": "AYA MCP",
+  "source_repository": "https://github.com/sztlink/aya-mcp",
+  "aya_commit": "bfa6019f1b5ad6a5c45ed32d799f4634bf5368ce",
+  "protocol": "v0",
+  "runtime_status": "research-frozen",
+  "production_execution_enabled": false,
+  "claim_boundary": {
+    "aya_receipt_is_execution_evidence": true,
+    "aya_receipt_is_independent_observation": false,
+    "aya_receipt_is_identity_signature": false,
+    "os_sandbox_claimed": false
+  }
+}
