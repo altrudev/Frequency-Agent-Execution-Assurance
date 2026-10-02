@@ -21,6 +21,7 @@ The demo creates a temporary signed TRACE record using the released `agentrust-t
 The adapter verifies the standalone TRACE record using the released TRACE verifier and a caller-supplied trusted key. The emitted projection preserves hashes for the exact record and trusted-key files and carries an explicit claim ceiling.
 
 The projection does not claim that:
+- the trusted signing key was independently bound to the runtime measurement or attestation it accompanies;
 - a hardware attestation was independently verified;
 - a transparency/registry inclusion proof was independently verified;
 - the content behind a tool-transcript hash was independently bound;
