@@ -1,0 +1,2 @@
+agentrust-trace==0.10.0
+pytest>=8,<10
