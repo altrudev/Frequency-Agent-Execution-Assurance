@@ -28,6 +28,8 @@ The repository now includes a small public reference evaluator for authority-to-
 
 See [Public Execution Conformance](docs/PUBLIC-CONFORMANCE.md) and the adversarial corpus in `fixtures/conformance/cases.json`.
 
+The public layer also supports a [Portable Evidence Bundle](docs/PORTABLE-EVIDENCE-BUNDLE.md): a signed JSON package for offline verification that binds issuer, nonce, adapter, source commit, exact run digest, and the complete execution-evidence envelope. Bundle validity never raises the underlying claim ceiling; the contained run is independently re-evaluated.
+
 Concrete public workload adapters now include the [Thrixel / World adapter](adapters/thrixel-world/README.md), which binds a pinned Thrixel MCP workload profile into the public conformance path while keeping production execution, publishing, financial actions, credentials, and proprietary Frequency Core logic outside the public repository, and the [AYA Workcell reference adapter](adapters/aya-workcell/README.md), which maps AYA Score, Lease, candidate Receipt, and external observation into the same claim-limited evidence model without treating AYA's synthetic research runtime as an OS sandbox or production DCC boundary.
 
 ## What the public surface can describe
