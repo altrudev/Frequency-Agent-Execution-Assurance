@@ -83,6 +83,7 @@ def verify_and_project(
             "claim_ceiling": "trace-record-cryptographically-verified",
             "external_effect_verified": False,
             "hardware_attestation_independently_verified": False,
+            "signing_key_runtime_binding_verified": False,
             "transparency_inclusion_independently_verified": False,
             "transcript_content_bound": False,
         },

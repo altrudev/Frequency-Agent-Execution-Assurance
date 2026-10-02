@@ -1,0 +1,50 @@
+{
+  "schema": "frequency.conformance-corpus.v1",
+  "cases": [
+    {
+      "id": "valid-signed-closure",
+      "expected_status": "VERIFIED",
+      "purpose": "Exact authority, execution, independent observation, required evidence, and trusted signed closure."
+    },
+    {
+      "id": "post-authorization-request-mutation",
+      "expected_status": "NOT VERIFIED",
+      "expected_finding": "AUTHORIZED_REQUEST_MUTATED"
+    },
+    {
+      "id": "stale-authority",
+      "expected_status": "NOT VERIFIED",
+      "expected_finding": "STALE_OR_PREMATURE_AUTHORITY"
+    },
+    {
+      "id": "self-observation",
+      "expected_status": "NOT VERIFIED",
+      "expected_finding": "SELF_OBSERVATION"
+    },
+    {
+      "id": "missing-required-evidence",
+      "expected_status": "NOT VERIFIED",
+      "expected_finding": "MISSING_REQUIRED_EVIDENCE"
+    },
+    {
+      "id": "rewritten-chain-recomputed-digest",
+      "expected_status": "NOT VERIFIED",
+      "expected_finding": "CLOSURE_SIGNATURE_NOT_VERIFIED"
+    },
+    {
+      "id": "spoofed-observer-identity",
+      "expected_status": "NOT VERIFIED",
+      "expected_finding": "OBSERVER_ID_NOT_TRUSTED"
+    },
+    {
+      "id": "required-evidence-set-downgrade",
+      "expected_status": "NOT VERIFIED",
+      "expected_finding": "CLOSURE_DIGEST_MISMATCH"
+    },
+    {
+      "id": "claim-above-evidence",
+      "expected_status": "NOT VERIFIED",
+      "expected_finding": "CLAIM_EXCEEDS_EVIDENCE"
+    }
+  ]
+}

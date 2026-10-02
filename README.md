@@ -22,6 +22,12 @@ The first public workload profile is **Generated Artifact / World Execution Assu
 
 See [Generated Artifact Assurance](docs/GENERATED-ARTIFACT-ASSURANCE.md).
 
+## Public conformance evaluator
+
+The repository now includes a small public reference evaluator for authority-to-execution binding, independent observation, required evidence, signed closing commitments, and claim ceilings. It is deliberately separate from proprietary Frequency Core and exists so the public evidence contract can be tested reproducibly.
+
+See [Public Execution Conformance](docs/PUBLIC-CONFORMANCE.md) and the adversarial corpus in `fixtures/conformance/cases.json`.
+
 ## What the public surface can describe
 
 - agent and tool identity;

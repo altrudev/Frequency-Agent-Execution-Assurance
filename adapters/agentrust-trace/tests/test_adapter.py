@@ -60,6 +60,7 @@ def test_valid_record_projects_bounded_verified_evidence(tmp_path):
     assert result["verification"]["status"] == "VERIFIED"
     assert result["verification"]["external_effect_verified"] is False
     assert result["verification"]["hardware_attestation_independently_verified"] is False
+    assert result["verification"]["signing_key_runtime_binding_verified"] is False
     assert result["source"]["trusted_key_source"] == "caller-supplied"
     assert result["projection_sha256"].startswith("sha256:")
 

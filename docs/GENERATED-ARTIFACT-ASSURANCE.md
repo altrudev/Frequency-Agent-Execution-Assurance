@@ -31,6 +31,8 @@ A workload should preserve, where applicable:
 - requested and observed effect class;
 - external target identifier;
 - independent observation reference;
+- trusted observer-attestation reference when external-effect verification is claimed;
+- signed closing commitment binding authority, execution, observation, and required evidence;
 - drift or mismatch status.
 
 ## Fail-closed conditions
@@ -42,8 +44,9 @@ A mutating action should not be promoted as verified when any required binding i
 - artifact digest or provenance loss;
 - tool-call identity mismatch;
 - external target mismatch;
-- missing required observer;
+- missing required observer or unverified observer signature;
 - observed state that cannot be correlated to the governed action;
+- missing or invalid signed closing commitment;
 - cumulative disclosure or resource-budget violation.
 
 ## Vendor boundary
