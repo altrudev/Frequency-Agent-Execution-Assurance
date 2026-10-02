@@ -28,6 +28,8 @@ The repository now includes a small public reference evaluator for authority-to-
 
 See [Public Execution Conformance](docs/PUBLIC-CONFORMANCE.md) and the adversarial corpus in `fixtures/conformance/cases.json`.
 
+The first concrete public workload adapter is the [Thrixel / World adapter](adapters/thrixel-world/README.md). It binds a pinned Thrixel MCP workload profile into the same public conformance path while keeping production execution, publishing, financial actions, credentials, and proprietary Frequency Core logic outside the public repository.
+
 ## What the public surface can describe
 
 - agent and tool identity;
