@@ -18,11 +18,13 @@ A run can reach the public `externally-observed-effect-with-signed-closure` ceil
 
 The reference evaluator checks:
 
+- signed closing commitment over the run schema and complete intent object;
 - exact principal, target, and operation binding;
 - exact request digest binding across authorization and execution;
 - execution inside the authority validity window;
 - independent observer separation from the execution principal;
 - exact match to an independently supplied trusted observer identity;
+- observation time at or after execution start;
 - Ed25519 verification of the observation using that observer's separately supplied trusted public key;
 - target, operation, and effect correlation between execution and observation;
 - presence of every required evidence reference;
