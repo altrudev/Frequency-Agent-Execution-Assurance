@@ -39,6 +39,8 @@ def observation_payload(run: dict[str, Any]) -> dict[str, Any]:
 def closure_payload(run: dict[str, Any]) -> dict[str, Any]:
     evidence = run.get("evidence") if isinstance(run.get("evidence"), dict) else {}
     return {
+        "schema": run.get("schema"),
+        "intent": run.get("intent"),
         "authority": run.get("authority"),
         "execution": run.get("execution"),
         "observation": run.get("observation"),
@@ -155,6 +157,22 @@ def evaluate_run(
             "OBSERVER_ID_NOT_TRUSTED",
             "observation observer_id does not match the trusted observer identity",
         )
+    observed_at = observation.get("observed_at")
+    if not isinstance(observed_at, int):
+        observation_ok = False
+        _add(
+            findings,
+            "INVALID_OBSERVATION_TIME",
+            "observation.observed_at must be an integer",
+        )
+    elif isinstance(started_at, int) and observed_at < started_at:
+        observation_ok = False
+        _add(
+            findings,
+            "OBSERVATION_PRECEDES_EXECUTION",
+            "independent observation cannot precede execution start",
+        )
+
     for field in ("target", "operation", "effect_digest"):
         if observation.get(field) != execution.get(field):
             observation_ok = False

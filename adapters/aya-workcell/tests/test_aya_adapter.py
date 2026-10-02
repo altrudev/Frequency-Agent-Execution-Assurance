@@ -156,7 +156,7 @@ def _run():
         principal="human://demo",
         target="aya://workcell/demo-score/candidate",
         observer_id="observer://independent/aya-demo",
-        observed_at=1727892390,
+        observed_at=1790964390,
         observation_effect_digest=effect,
         receipt_anchor_ref="sha256:" + receipt["receiptSha256"],
         observation_receipt_ref="sha256:" + "1" * 64,

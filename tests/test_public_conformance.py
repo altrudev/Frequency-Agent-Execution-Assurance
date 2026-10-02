@@ -266,3 +266,39 @@ def test_required_evidence_set_is_bound_by_closing_signature():
 
     assert "CLOSURE_DIGEST_MISMATCH" in _codes(result)
     assert result["external_effect_verified"] is False
+
+
+def test_signed_closure_binds_intent_object():
+    observer_private, observer_public, closure_private, closure_public = _keys()
+    run = _base_run()
+    _seal(run, observer_private, closure_private)
+    run["intent"]["human_rationale"] = "rewritten after closure"
+
+    result = _evaluate(run, observer_public, closure_public)
+
+    assert "CLOSURE_DIGEST_MISMATCH" in _codes(result)
+    assert result["external_effect_verified"] is False
+
+
+def test_observation_cannot_precede_execution():
+    observer_private, observer_public, closure_private, closure_public = _keys()
+    run = _base_run()
+    run["observation"]["observed_at"] = run["execution"]["started_at"] - 1
+    _seal(run, observer_private, closure_private)
+
+    result = _evaluate(run, observer_public, closure_public)
+
+    assert "OBSERVATION_PRECEDES_EXECUTION" in _codes(result)
+    assert result["external_effect_verified"] is False
+
+
+def test_observation_time_must_be_integer():
+    observer_private, observer_public, closure_private, closure_public = _keys()
+    run = _base_run()
+    run["observation"]["observed_at"] = "155"
+    _seal(run, observer_private, closure_private)
+
+    result = _evaluate(run, observer_public, closure_public)
+
+    assert "INVALID_OBSERVATION_TIME" in _codes(result)
+    assert result["external_effect_verified"] is False
