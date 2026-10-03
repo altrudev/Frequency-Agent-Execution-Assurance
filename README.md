@@ -1,6 +1,10 @@
-# Frequency Agent Execution Assurance
+<p align="center">
+  <img src="frequency-agent-execution-assurance-logo.png" alt="Frequency Agent Execution Assurance" width="720" />
+</p>
 
-**Govern what an AI agent is allowed to do, observe what it actually did, and preserve evidence of the resulting external state.**
+<p align="center">
+  <strong>Govern what an AI agent is allowed to do, observe what it actually did, and preserve evidence of the resulting external state.</strong>
+</p>
 
 Frequency Agent Execution Assurance is the public product and integration surface for Frequency workloads that cross an agent boundary into tools, generated artifacts, APIs, engines, repositories, deployment systems, or other external state.
 
