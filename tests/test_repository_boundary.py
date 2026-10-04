@@ -13,6 +13,7 @@ ALLOWED_TOP_LEVEL_FILES = {
     "README.md",
     "SECURITY.md",
     "requirements-dev.txt",
+    "frequency-agent-execution-assurance-logo.png",
 }
 ALLOWED_TOP_LEVEL_DIRS = {
     "adapters",
@@ -20,6 +21,7 @@ ALLOWED_TOP_LEVEL_DIRS = {
     "docs",
     "fixtures",
     "tests",
+    ".github",
 }
 
 

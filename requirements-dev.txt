@@ -1,2 +1,3 @@
+agentrust-trace==0.10.0
 cryptography>=43,<47
 pytest>=8,<10
