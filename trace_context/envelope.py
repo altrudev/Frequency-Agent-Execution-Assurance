@@ -17,12 +17,17 @@ def assess(record, context):
     missing = [key for key in REQUIRED if key not in context]
     if missing:
         return {"status": "not-established", "reason": "missing-context", "missing": missing}
-    if not context["required_layers"]:
-        return {"status": "not-established", "reason": "empty-required-layer-policy"}
     if not isinstance(context["required_layers"], list) or not all(isinstance(x, str) for x in context["required_layers"]):
         return {"status": "not-established", "reason": "invalid-policy"}
+    if not context["required_layers"]:
+        return {"status": "not-established", "reason": "empty-required-layer-policy"}
     if len(set(context["required_layers"])) != len(context["required_layers"]):
         return {"status": "not-established", "reason": "duplicate-required-layer"}
+    policy = context.get("policy")
+    if not isinstance(policy, dict) or set(policy) != {"required_layers"} or policy["required_layers"] != context["required_layers"]:
+        return {"status": "not-established", "reason": "policy-content-mismatch"}
+    if digest(policy) != context["policy_sha256"]:
+        return {"status": "not-established", "reason": "policy-binding-mismatch"}
     if digest(record) != context["record_sha256"]:
         return {"status": "not-established", "reason": "record-binding-mismatch"}
     try:
