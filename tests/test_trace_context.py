@@ -38,5 +38,17 @@ class RetainedContextTests(unittest.TestCase):
         self.assertEqual(receipt(RECORD, BASE), receipt(RECORD, BASE))
         self.assertNotEqual(receipt(RECORD, BASE)["sha256"], receipt(RECORD, dict(BASE, policy_sha256="different"))["sha256"])
 
+    def test_malformed_time_fails_closed(self):
+        for value in (110.5, "110", True, None):
+            self.assertEqual(assess(RECORD, dict(BASE, verified_at=value))["reason"], "invalid-time-context")
+
+    def test_absent_measurement_fails_closed(self):
+        record = {"iat": 100}
+        context = dict(BASE, record_sha256=digest(record))
+        self.assertEqual(assess(record, context)["reason"], "missing-layer-evidence")
+
+    def test_empty_policy_fails_closed(self):
+        self.assertEqual(assess(RECORD, dict(BASE, required_layers=[]))["reason"], "empty-required-layer-policy")
+
 if __name__ == "__main__":
     unittest.main()
