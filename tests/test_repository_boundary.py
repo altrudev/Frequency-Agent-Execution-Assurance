@@ -18,6 +18,7 @@ ALLOWED_TOP_LEVEL_FILES = {
 ALLOWED_TOP_LEVEL_DIRS = {
     "adapters",
     "conformance",
+    "trace_context",
     "docs",
     "fixtures",
     "tests",
