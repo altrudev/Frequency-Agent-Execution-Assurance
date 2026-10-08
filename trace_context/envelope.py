@@ -17,6 +17,8 @@ def assess(record, context):
     missing = [key for key in REQUIRED if key not in context]
     if missing:
         return {"status": "not-established", "reason": "missing-context", "missing": missing}
+    if not context["required_layers"]:
+        return {"status": "not-established", "reason": "empty-required-layer-policy"}
     if not isinstance(context["required_layers"], list) or not all(isinstance(x, str) for x in context["required_layers"]):
         return {"status": "not-established", "reason": "invalid-policy"}
     if len(set(context["required_layers"])) != len(context["required_layers"]):
@@ -24,15 +26,21 @@ def assess(record, context):
     if digest(record) != context["record_sha256"]:
         return {"status": "not-established", "reason": "record-binding-mismatch"}
     try:
-        now, issued = int(context["verified_at"]), int(record["iat"])
-        age, skew = int(context["max_age_seconds"]), int(context["max_future_skew_seconds"])
+        if not all(type(v) is int for v in (context["verified_at"], record["iat"], context["max_age_seconds"], context["max_future_skew_seconds"])):
+            raise ValueError()
+        now, issued = context["verified_at"], record["iat"]
+        age, skew = context["max_age_seconds"], context["max_future_skew_seconds"]
         if any(isinstance(context[k], bool) for k in ("verified_at", "max_age_seconds", "max_future_skew_seconds")) or age < 0 or skew < 0:
             raise ValueError()
     except (ValueError, TypeError, KeyError):
         return {"status": "not-established", "reason": "invalid-time-context"}
     if issued < now - age or issued > now + skew:
         return {"status": "rejected", "reason": "freshness-window"}
-    layers = record.get("appraisal", {}).get("platform_measurement", {}).get("layers", {})
+    appraisal = record.get("appraisal")
+    measurement = appraisal.get("platform_measurement") if isinstance(appraisal, dict) else None
+    layers = measurement.get("layers") if isinstance(measurement, dict) else None
+    if not isinstance(layers, dict):
+        return {"status": "not-established", "reason": "missing-layer-evidence"}
     absent = [name for name in context["required_layers"] if not isinstance(layers.get(name), dict) or layers[name].get("outcome") != "established"]
     if absent:
         return {"status": "not-established", "reason": "required-layer-not-established", "layers": absent}
