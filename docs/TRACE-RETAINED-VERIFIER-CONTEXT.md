@@ -10,6 +10,6 @@ The fixed-time check models only the `iat` freshness comparison described in age
 
 ## Limitations and next gate
 
-This first fixture uses restricted deterministic JSON, **not RFC 8785/JCS**. The digest binds supplied context bytes but does not authenticate them. Policy and trust-root hashes are opaque placeholders, not verified snapshots. The next implementation must enforce policy-content hash binding, verify trust and inclusion evidence independently, pin actual resolver responses, use a proven canonicalizer, add independent cross-language vectors, and prove the output against TRACE's normative schema and conformance corpus before any upstream proposal.
+This first fixture uses restricted deterministic JSON, **not RFC 8785/JCS**. The digest binds supplied context bytes but does not authenticate them. The retained required-layer policy is now bound to its deterministic fixture digest, but the policy's provenance and authority are not authenticated. Trust-root and resolver hashes remain opaque placeholders, not verified snapshots. The next implementation must authenticate policy provenance, verify trust and inclusion evidence independently, pin actual resolver responses, use a proven canonicalizer, add independent cross-language vectors, and prove the output against TRACE's normative schema and conformance corpus before any upstream proposal.
 
 Run: `python -m unittest discover -s tests -p test_trace_context.py -v`.
