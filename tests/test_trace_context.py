@@ -4,15 +4,17 @@ from trace_context.envelope import assess, digest, receipt
 RECORD = {"iat": 100, "appraisal": {"platform_measurement": {"layers": {
     "pcr:2": {"outcome": "established"},
     "pcr:3": {"outcome": "not-established", "reason": "measured-not-appraised"}}}}}
+POLICY = {"required_layers": ["pcr:2"]}
 BASE = {"verified_at": 110, "max_age_seconds": 30, "max_future_skew_seconds": 2,
-        "policy_sha256": "policy-fixture", "required_layers": ["pcr:2"],
+        "policy_sha256": digest(POLICY), "policy": POLICY, "required_layers": ["pcr:2"],
         "trust_roots_sha256": "roots-fixture", "resolver_snapshot_sha256": "resolver-fixture",
         "verifier_revision": "fixture-v1", "record_sha256": digest(RECORD)}
 
 class RetainedContextTests(unittest.TestCase):
     def test_policy_differential(self):
         self.assertEqual(assess(RECORD, BASE)["status"], "context-checks-satisfied")
-        changed = dict(BASE, required_layers=["pcr:2", "pcr:3"], policy_sha256="policy-fixture-b")
+        policy = {"required_layers": ["pcr:2", "pcr:3"]}
+        changed = dict(BASE, required_layers=policy["required_layers"], policy=policy, policy_sha256=digest(policy))
         self.assertEqual(assess(RECORD, changed)["reason"], "required-layer-not-established")
 
     def test_missing_policy_fails_closed(self):
@@ -21,7 +23,8 @@ class RetainedContextTests(unittest.TestCase):
         self.assertEqual(assess(RECORD, context)["reason"], "missing-context")
 
     def test_missing_required_layer_fails_closed(self):
-        context = dict(BASE, required_layers=["pcr:4"])
+        policy = {"required_layers": ["pcr:4"]}
+        context = dict(BASE, required_layers=policy["required_layers"], policy=policy, policy_sha256=digest(policy))
         self.assertEqual(assess(RECORD, context)["status"], "not-established")
 
     def test_freshness_boundaries(self):
@@ -49,6 +52,12 @@ class RetainedContextTests(unittest.TestCase):
 
     def test_empty_policy_fails_closed(self):
         self.assertEqual(assess(RECORD, dict(BASE, required_layers=[]))["reason"], "empty-required-layer-policy")
+
+    def test_policy_digest_mutation_fails_closed(self):
+        self.assertEqual(assess(RECORD, dict(BASE, policy_sha256="tampered"))["reason"], "policy-binding-mismatch")
+
+    def test_policy_layer_mismatch_fails_closed(self):
+        self.assertEqual(assess(RECORD, dict(BASE, required_layers=["pcr:3"]))["reason"], "policy-content-mismatch")
 
 if __name__ == "__main__":
     unittest.main()
